@@ -1,0 +1,29 @@
+version : "1"
+services:
+  react :
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "53000:3000"
+    volumes:
+      - /var/www/html/node_modules
+      - ./:/var/www/html
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    stdin_open: true
+  react-tests :
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /var/www/html/node_modules
+      - ./:/var/www/html
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: [
+      "npm",
+      "run",
+      "test"
+    ]
+
