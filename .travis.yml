@@ -1,12 +1,17 @@
 sudo: required
+
 language: generic
+
 services:
   - docker
+
 before_install:
   - echo "start creating an image"
   - docker build -t jpro/docker-react-app -f Dockerfile.dev .
+
 script:
   - docker run -e CI=true jpro/docker-react-app npm run test -- --coverage
+
 deploy:
   provider: elasticbeanstalk
   region: "ap-northeast-2"
@@ -18,5 +23,6 @@ deploy:
     branch: main
   access_key_id: $AWS_Access_Key
   secret_access_key: $AWS_Secret_Access_Key
+
 after_success:
   - echo "Test Success!"
