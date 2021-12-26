@@ -7,5 +7,16 @@ before_install:
   - docker build -t jpro/docker-react-app -f Dockerfile.dev .
 script:
   - docker run -e CI=true jpro/docker-react-app npm run test -- --coverage
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-2"
+  app : "docker-react-app"
+  env: "Dockerreactapp-env"
+  bucket_name: "elasticbeanstalk-ap-northeast-2-859910041461"
+  bucket_path: "docker-react-app"
+  on:
+    branch: main
+  access_key_id: $AWS_Access_Key
+  secret_access_key: $AWS_Secret_Access_Key
 after_success:
   - echo "Test Success!"
