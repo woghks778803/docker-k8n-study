@@ -6,15 +6,15 @@ services:
   - docker
 
 before_install:
-  - docker build -t jpro/docker-test-frontend -f ./frontend/Dockerfile.dev ./frontend
+  - docker build -t woghks778803/docker-test-frontend -f ./frontend/Dockerfile.dev ./frontend
 
 script:
-  - docker run -e CI=true jpro/docker-test-frontend npm run test 
+  - docker run -e CI=true woghks778803/docker-test-frontend npm run test 
 
 after_success:
-  - docker build -t jpro/docker-frontend ./frontend
-  - docker build -t jpro/docker-backend ./backend
-  - docker build -t jpro/docker-nginx ./nginx
+  - docker build -t woghks778803/docker-frontend ./frontend
+  - docker build -t woghks778803/docker-backend ./backend
+  - docker build -t woghks778803/docker-nginx ./nginx
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
   - docker push woghks778803/docker-frontend
   - docker push woghks778803/docker-backend
