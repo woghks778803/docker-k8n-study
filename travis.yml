@@ -1,0 +1,21 @@
+language : generic
+
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t jpro/docker-test-frontend -f ./frontend/Dockerfile.dev ./frontend
+
+script:
+  - docker run -e CI=true jpro/docker-test-frontend npm run test 
+
+after_success:
+  - docker build -t jpro/docker-frontend ./frontend
+  - docker build -t jpro/docker-backend ./backend
+  - docker build -t jpro/docker-nginx ./nginx
+  - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
+  - docker push jpro/docker-frontend
+  - docker push jpro/docker-backend
+  - docker push jpro/docker-nginx
