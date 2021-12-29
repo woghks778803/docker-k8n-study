@@ -24,7 +24,7 @@ deploy:
   provider: elasticbeanstalk
   region: "ap-northeast-2"
   app : "docker-k8n-app"
-  env: "Dockerk8napp-env-1"
+  env: "Dockerk8napp-env"
   bucket_name: "elasticbeanstalk-ap-northeast-2-859910041461"
   bucket_path: "docker-k8n-app"
   on:
