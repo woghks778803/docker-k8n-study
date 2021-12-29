@@ -16,6 +16,6 @@ after_success:
   - docker build -t jpro/docker-backend ./backend
   - docker build -t jpro/docker-nginx ./nginx
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
-  - docker push jpro/docker-frontend
-  - docker push jpro/docker-backend
-  - docker push jpro/docker-nginx
+  - docker push woghks778803/docker-frontend
+  - docker push woghks778803/docker-backend
+  - docker push woghks778803/docker-nginx
