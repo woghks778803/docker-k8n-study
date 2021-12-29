@@ -19,7 +19,7 @@ services:
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: jpro 
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: myapppassword
       MYSQL_DATABASE: myapp
       MYSQL_PORT: 3306    
   nginx:

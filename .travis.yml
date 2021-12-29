@@ -6,16 +6,28 @@ services:
   - docker
 
 before_install:
-  - docker build -t woghks778803/docker-test-frontend -f ./frontend/Dockerfile.dev ./frontend
+  - docker build -t $DOCKER_HUB_ID/docker-test-frontend -f ./frontend/Dockerfile.dev ./frontend
 
 script:
-  - docker run -e CI=true woghks778803/docker-test-frontend npm run test 
+  - docker run -e CI=true $DOCKER_HUB_ID/docker-test-frontend npm run test 
 
 after_success:
-  - docker build -t woghks778803/docker-frontend ./frontend
-  - docker build -t woghks778803/docker-backend ./backend
-  - docker build -t woghks778803/docker-nginx ./nginx
+  - docker build -t $DOCKER_HUB_ID/docker-frontend ./frontend
+  - docker build -t $DOCKER_HUB_ID/docker-backend ./backend
+  - docker build -t $DOCKER_HUB_ID/docker-nginx ./nginx
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
-  - docker push woghks778803/docker-frontend
-  - docker push woghks778803/docker-backend
-  - docker push woghks778803/docker-nginx
+  - docker push $DOCKER_HUB_ID/docker-frontend
+  - docker push $DOCKER_HUB_ID/docker-backend
+  - docker push $DOCKER_HUB_ID/docker-nginx
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-2"
+  app : "docker-k8n-app"
+  env: "Dockerk8napp-env-1"
+  bucket_name: "elasticbeanstalk-ap-northeast-2-859910041461"
+  bucket_path: "docker-k8n-app"
+  on:
+    branch: "main"
+  access_key_id: $AWS_Access_Key
+  secret_access_key: $AWS_Secret_Access_Key
