@@ -1,4 +1,4 @@
-version: "2.4"
+version: "3"
 services:
   frontend:
     image: woghks778803/docker-frontend
@@ -14,11 +14,11 @@ services:
       - /var/www/backend/node_modules
       - ./backend:/var/www/backend
     environment:
-      MYSQL_HOST: docker-k8n-mysql.cjnqouaoqi3v.ap-northeast-2.rds.amazonaws.com
-      MYSQL_USER: jpro 
-      MYSQL_ROOT_PASSWORD: myapppassword
-      MYSQL_DATABASE: myapp
-      MYSQL_PORT: 3306    
+      MYSQL_HOST: $MYSQL_HOST
+      MYSQL_USER: $MYSQL_USER 
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_PORT: $MYSQL_PORT    
     mem_limit: 128m
   nginx:
     restart: always
