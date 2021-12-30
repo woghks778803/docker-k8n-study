@@ -7,6 +7,8 @@ services:
       - ./frontend:/var/www/frontend
     stdin_open: true
     mem_limit: 128m
+    environment: 
+      TZ: "Asia/Seoul"
 
   backend:
     image: woghks778803/docker-backend
@@ -21,9 +23,12 @@ services:
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: $MYSQL_DATABASE
       MYSQL_PORT: $MYSQL_PORT   
+      TZ: "Asia/Seoul"
 
   nginx: 
     restart: always
     image: woghks778803/docker-nginx
     ports: 
       - "80:80"
+    environment: 
+      TZ: "Asia/Seoul"
