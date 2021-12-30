@@ -1,34 +1,34 @@
-version: "1"
+version: "2.4"
 services:
   frontend:
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./frontend
+    image: woghks778803/docker-frontend
     volumes: 
       - /var/www/frontend/node_modules
       - ./frontend:/var/www/frontend
     stdin_open: true
+    mem_limit: 128m
   backend:
     container_name: app_backend
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./backend
+    image: woghks778803/docker-backend
     volumes: 
       - /var/www/backend/node_modules
       - ./backend:/var/www/backend
     environment:
-      MYSQL_HOST: mysql
+      MYSQL_HOST: docker-k8n-mysql.cjnqouaoqi3v.ap-northeast-2.rds.amazonaws.com
       MYSQL_USER: jpro 
       MYSQL_ROOT_PASSWORD: myapppassword
       MYSQL_DATABASE: myapp
       MYSQL_PORT: 3306    
+    mem_limit: 128m
   nginx:
     restart: always
-    build:
-      dockerfile: Dockerfile
-      context: ./nginx
+    image: woghks778803/docker-nginx
     ports:
-      - "3000:80"
+      - "80:80"
+    mem_limit: 128m
+    links: 
+      - frontend
+      - backend
   # mysql:
   #   restart: unless-stopped
   #   build: 
