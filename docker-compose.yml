@@ -2,35 +2,45 @@ version: "3"
 services:
   frontend:
     image: woghks778803/docker-frontend
+    # build:
+    #   dockerfile: Dockerfile.dev
+    #   context: ./frontend
     volumes: 
       - /var/www/frontend/node_modules
       - ./frontend:/var/www/frontend
     stdin_open: true
-    mem_limit: 128m
+    # mem_limit: 128m
 
   backend:
     container_name: app_backend
     image: woghks778803/docker-backend
+    # build:
+    #   dockerfile: Dockerfile.dev
+    #   context: ./backend
     volumes: 
       - /var/www/backend/node_modules
       - ./backend:/var/www/backend
     environment:
       MYSQL_HOST: $MYSQL_HOST
-      MYSQL_USER: $MYSQL_USER 
+      MYSQL_USER: $MYSQL_USER
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: $MYSQL_DATABASE
-      MYSQL_PORT: $MYSQL_PORT    
-    mem_limit: 128m
+      MYSQL_PORT: $MYSQL_PORT
+    # mem_limit: 128m
     
   nginx:
     restart: always
     image: woghks778803/docker-nginx
+    # build:
+    #   dockerfile: Dockerfile
+    #   context: ./nginx
     ports:
       - "80:80"
-    mem_limit: 128m
+    # mem_limit: 128m
     links: 
       - frontend
       - backend
+
   # mysql:
   #   restart: unless-stopped
   #   build: 
