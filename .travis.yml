@@ -28,6 +28,6 @@ deploy:
   bucket_name: "elasticbeanstalk-ap-northeast-2-859910041461"
   bucket_path: "docker-k8n-app"
   on:
-    branch: "main"
+    branch: main
   access_key_id: $AWS_Access_Key
   secret_access_key: $AWS_Secret_Access_Key
